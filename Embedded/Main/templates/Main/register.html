@@ -1,0 +1,26 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+<section class="ftco-intro img" id="events-section" style="background-image: url(images/bg_3.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="ftco-daily-verse img" style="background-color: black;">
+                <div class="overlay"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+<form method="POST" action="{% url 'main:register' %}">
+{% csrf_token %}
+    {{f2.as_p}}
+    {{f1.as_p}}
+<input type="submit" class="btn btn-success" value="Done">
+                </form>
+		    	</div>
+	    	</div>
+    	</div>
+    </section>
+{% endblock %}

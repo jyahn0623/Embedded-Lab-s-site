@@ -29,7 +29,7 @@
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">  
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
             <div class="container">
-            <a class="navbar-brand" href="index.html"><span class="flaticon-bible"></span>Ahnjuyoung</a>
+            <a class="navbar-brand" href="{% url 'main:main' %}"><span class="flaticon-bible"></span>Ahnjuyoung</a>
             <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -38,12 +38,19 @@
                 <ul class="navbar-nav nav ml-auto">
                 <li class="nav-item"><a href="{% url 'main:main'%}" class="nav-link"><span>홈</span></a></li>
                 <li class="nav-item"><a href="#about-section" class="nav-link"><span>소개</span></a></li>
-                <li class="nav-item"><a href="{% url 'main:Viewmembers' %}" class="nav-link"><span>연구생</span></a></li>
+                <li class="nav-item"><a href="{% url 'main:Viewmembers' %}" class="nav-link"><span>연구원</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><span>게시판</span></a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span>회원가입</span></a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span>로그인</span></a></li>
+                {% if not user.is_authenticated %}
+                  <li class="nav-item"><a href="{% url 'main:register' %}" class="nav-link"><span>회원가입</span></a></li>
+                  <li class="nav-item"><a href="{% url 'main:login' %}" class="nav-link"><span>로그인</span></a></li>
+                {% else %}
+                  <li class="nav-item"><a href="{% url 'main:logout' %}" class="nav-link"><span>로그아웃</span></a></li>
+                  <li><span style="color : black">{{request.user.profile.p_name}}님</span></li>
+                {% endif %}
+             
                 </ul>
             </div>
+
             </div>
         </nav>
     {% block content %}
@@ -64,7 +71,7 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Menu</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>연구원</a></li>
+                <li><a href="{% url 'main:Viewmembers' %}" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>연구원</a></li>
                
 
               </ul>
@@ -74,7 +81,7 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Address</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>07-326</a></li>
+               <span>[28503] 충청북도 청주시 청원구 대성로 298</span>
                
               </ul>
             </div>
