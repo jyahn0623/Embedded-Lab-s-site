@@ -36,15 +36,19 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
-                <li class="nav-item"><a href="  " class="nav-link"><span>홈</span></a></li>
+                <li class="nav-item"><a href="{% url 'main:main'%}" class="nav-link"><span>홈</span></a></li>
                 <li class="nav-item"><a href="#about-section" class="nav-link"><span>소개</span></a></li>
+                <li class="nav-item"><a href="{% url 'main:Viewmembers' %}" class="nav-link"><span>연구생</span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><span>게시판</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span>회원가입</span></a></li>
+                <li class="nav-item"><a href="#" class="nav-link"><span>로그인</span></a></li>
                 </ul>
             </div>
             </div>
         </nav>
     {% block content %}
     {% endblock %}
+
     <!---->
      <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
@@ -53,11 +57,7 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2 logo"><span>임베디드</span> 연구실</h2>
               <p>This is Embedded Lab site for share datas and communicate with each other.</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
+              
             </div>
           </div>
           <div class="col-md">
@@ -110,3 +110,4 @@
     
     </body>
 </html>
+

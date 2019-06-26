@@ -5,3 +5,6 @@ from django.views.generic import View
 class Main(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'Main/index.html', {})
+
+def ViewMembers(request):
+    return render(request, 'Main/Introduction_members.html', {})
