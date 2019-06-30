@@ -24,7 +24,7 @@ SECRET_KEY = 'gki5)v11qw7m15p2uqa46g-$+kjhf2bi%ms0lva6w*$rny@3em'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # summer_note
 SUMMERNOTE_THEME = 'bs4'
