@@ -1,6 +1,8 @@
 {% extends 'Main/base.html' %}
+{% load static %}
 {% block content %}
-<section class="ftco-intro img" id="events-section" style="background-image: url(images/bg_3.jpg);">
+
+<section class="ftco-intro img" id="events-section">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -8,19 +10,83 @@
     </div>
 </section>
 
-<section class="ftco-daily-verse img" style="background-color: black;">
-                <div class="overlay"></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-10">
-<form method="POST" action="{% url 'main:register' %}">
-{% csrf_token %}
-    {{f2.as_p}}
-    {{f1.as_p}}
-<input type="submit" class="btn btn-success" value="Done">
-                </form>
-		    	</div>
-	    	</div>
-    	</div>
-    </section>
+<section class="ftco-daily-verse img">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+
+        <form id="pass_form" method="POST" action="{% url 'main:register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+                {% for field in f2 %}
+                    <label>{{field.label_tag}}</label>
+                    <p>{{field}}<span class="ml-3" id="check_{{field.id_for_label}}"></span></p>
+                {% endfor %}
+                비밀번호 확인
+                <p><input id="password_check" class="mb-3" type="password"><span class="ml-3" id="alert"></span></p>
+                
+                {% for field in f1 %}
+                    <label>{{field.label_tag}}</label>
+                    <p>{{field}}<span class="ml-3" id="check_{{field.id_for_label}}"></span></p>
+                {% endfor %}
+            
+            <input id="pass" type="button" class="btn btn-success" value="가입">
+        </form>
+        </div>
+    </div>
+
+</section>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script>
+    var isPass = false, isPass1 = false;
+    var name_regex = /^[가-힣]{2,4}$/;
+
+    $("#id_username").keyup(function(){
+        var id = $("#id_username").val();
+
+        $.ajax({
+            url : "/ajax/idCheck/",
+            type : "POST",
+            data : {
+                "csrfmiddlewaretoken" : '{{csrf_token}}',
+                "id" : id,
+            },
+            success : function(res){
+                console.log(res.s);
+                if (res.s==false || id==""){
+                    $("span#check_id_username").html("사용 불가능한 아이디입니다.").css("color", "red");
+                    isPass1 = false;
+                }else if(res.s){
+                    $("span#check_id_username").html("사용 가능한 아이디입니다.").css("color", "green");
+                    isPass1 = true;
+                }
+            }
+        })
+    })
+
+    $("#password_check").keyup(function(){
+        var password = $("#id_password").val();
+        var input = $("#password_check").val();
+
+        if (input != password){
+            $("span#alert").html("비밀번호가 일치하지 않습니다.").css("color", "red");
+            isPass = false;
+        }else{
+            $("span#alert").html("비밀번호가 일치합니다.").css("color", "green");
+            isPass = true;
+        }
+    })
+    
+    
+    $("#pass").on('click', function(){
+        if(isPass && isPass1){
+            $('#pass_form').submit();
+        }else{
+            alert("폼을 확인해 주세요.");
+        }
+    })
+</script>
 {% endblock %}

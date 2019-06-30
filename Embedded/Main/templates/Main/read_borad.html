@@ -1,0 +1,35 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+<section class="ftco-intro img" id="events-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+<div class="container mt-3 mb-3" >
+<h3>제목 : {{board.b_title}}</h3> 
+<h4>작성자 : {{board.b_user}} 작성시간 : {{board.b_date}} </h4>
+<p>{{board.b_content|safe}}</p>
+
+<p>첨부파일</p>
+{% for item in files %}
+    <p><a  style="color : black" href="{{item.b_file.url}}">{{item.b_file.name}}</a></p>
+{% endfor %}
+
+{% if board.b_user == request.user %}
+    <input type="submit" value="수정" class="btn btn-info btn-rounded" onclick="window.location.href='{% url 'main:edit-board' board.id %}'">
+    <input type="submit" value="삭제" class="btn btn-danger btn-rounded" onclick="window.location.href='{% url 'main:del-board' board.id %}'">
+{% endif %}
+
+<div>
+    <div>
+        {% load disqus_tags %}
+        {% disqus_show_comments %}
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}

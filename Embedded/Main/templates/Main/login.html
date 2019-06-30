@@ -14,31 +14,32 @@
 	</div>
 </div>
 {% endif %}
-<form method="POST" action="{% url 'main:login' %}">
+
+{% if next %}
+<form method="POST" action="/login/?next={{next}}">
+{% else %}
+<form method="POST" action="/login/">
+{% endif %}
 {% csrf_token %}
 <div class="container mt-3 mb-3">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3>로그인</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
+				<h3>Log in</h3>
+				
 			</div>
 			<div class="card-body">
 				<form>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="far fa-grin-beam"></i></span>
 						</div>
 						<input name="id" type="text" class="form-control" placeholder="ID">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
+							<span class="input-group-text"><i class="far fa-grin-alt"></i></span>
 						</div>
 						<input name="pw" type="password" class="form-control" placeholder="PW">
 					</div>
@@ -50,7 +51,7 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					회원가입<a href="{% url 'main:register' %}" class="ml-2">회원가입</a>
+					<span></span><a style="color : blue" href="{% url 'main:register' %}" class="ml-2">회원가입</a>
 				</div>
     
 			</div>

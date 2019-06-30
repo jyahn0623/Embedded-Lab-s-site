@@ -1,0 +1,38 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+    <section class="ftco-intro img" id="events-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<div class='container'>
+<form method="POST" action="" enctype="multipart/form-data">
+{% csrf_token %}
+    {{form.as_p}}
+    {% for file in o_files %}
+        <p id="o{{file.id}}"><input class="btn btn-danger btn-rounded" type="button" value="삭제" onclick="delfile({{file.id}});">{{file.b_file}}<p> 
+    {% endfor %}
+
+    <input class="btn btn-success btn-rounded" type="submit" value="수정">
+</form>
+</div>
+<script>
+
+function delfile(pk){
+    var _url = "/ajax/file/" + pk + "/delete";
+    $.ajax({
+        type : 'POST',
+        url : _url,
+        data : {
+            csrfmiddlewaretoken : '{{csrf_token}}',
+        },
+        success : function(data){
+            $("#o"+pk).remove();
+        }
+    })
+}
+</script>
+{% endblock %}

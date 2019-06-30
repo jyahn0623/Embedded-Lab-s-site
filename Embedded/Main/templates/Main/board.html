@@ -1,0 +1,98 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+<section class="ftco-intro img" id="events-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+<section>
+<div class="container mt-3 mb-3">
+<table class="table table-sm table-hover text-center" style="color : black;">
+    <thead class="thead thead-light">
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>날짜</th>
+    </thead>
+    <tbody>
+    {% for item in notice %}
+       <tr class="font-weight-bold" style="background-color : rgb(255, 254, 205)">
+                <td style="width : 10%">{{item.id}}</td>
+                <td style="width : 50%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
+                <td style="width : 10%">{{item.b_user}}</td>
+                <td style="width : 30%">{{item.b_date}}</td>
+        </tr>
+    {% endfor %}
+    {% if boards %}
+        {% for item in boards %}
+            <tr>
+                <td style="width : 10%">{{item.id}}</td>
+                <td style="width : 50%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
+                <td style="width : 10%">{{item.b_user.profile.p_name}}</td>
+                <td style="width : 30%">{{item.b_date}}</td>
+            </tr>
+        {% endfor %}
+      {% else %}
+        <td colspan="4">게시글이 없습니다. </td>
+      {% endif %}
+    </tbody>
+</table>
+
+    <input type="button" class="btn btn-outline-primary waves-effect" value="글쓰기" onclick="window.location.href='/board/write/'">
+</div>
+</div>
+<!--검색 시-->
+{% if p %}
+<ul class="pagination pg-blue justify-content-center">
+  {% if p.has_previous %}
+    <a class="page-link" href="?keyword={{keyword}}&page={{ p.previous_page_number }}">이전</a>
+  {% endif %}
+
+  {% if p.has_next %}
+    <a class="page-link" href="?keyword={{keyword}}&page={{ p.next_page_number }}">다음</a>
+  {% endif %}
+ </ul>
+  
+{% endif %}
+
+{% if is_paginated %}
+  <ul class="pagination  pg-blue justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled page-link"><span>&laquo;</span></li>
+    {% endif %}
+    
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active  page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled page-link"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <form method="GET" action="{% url 'main:search-board' %}">
+    
+      <span style="color : black">검색:<span>
+      <input name="keyword" placeholder="작성자 이름, 제목" type="text">
+      <input type="submit" class="ml-2 btn btn-outline-success waves-effect" value="검색"> 
+    </form>
+  </div>
+</div>
+<div>
+</section>
+
+{% endblock %}

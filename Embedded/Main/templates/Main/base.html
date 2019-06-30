@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'Main/css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'Main/css/animate.css' %}">
     
@@ -29,7 +31,7 @@
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">  
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
             <div class="container">
-            <a class="navbar-brand" href="{% url 'main:main' %}"><span class="flaticon-bible"></span>Ahnjuyoung</a>
+            <a class="navbar-brand" href="{% url 'main:main' %}">Embedded</a>
             <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -39,20 +41,29 @@
                 <li class="nav-item"><a href="{% url 'main:main'%}" class="nav-link"><span>홈</span></a></li>
                 <li class="nav-item"><a href="#about-section" class="nav-link"><span>소개</span></a></li>
                 <li class="nav-item"><a href="{% url 'main:Viewmembers' %}" class="nav-link"><span>연구원</span></a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><span>게시판</span></a></li>
+                <li class="nav-item"><a href="{% url 'main:board' %}" class="nav-link"><span>게시판</span></a></li>
+                <li class="nav-item"><a href="{% url 'main:guestbook' %}" class="nav-link"><span>방명록</span></a></li>
                 {% if not user.is_authenticated %}
                   <li class="nav-item"><a href="{% url 'main:register' %}" class="nav-link"><span>회원가입</span></a></li>
                   <li class="nav-item"><a href="{% url 'main:login' %}" class="nav-link"><span>로그인</span></a></li>
                 {% else %}
                   <li class="nav-item"><a href="{% url 'main:logout' %}" class="nav-link"><span>로그아웃</span></a></li>
-                  <li><span style="color : black">{{request.user.profile.p_name}}님</span></li>
+                  <li id="user_info" class="nav-item"><a href="{% url 'main:mypage' %}" target="_blank" class="nav-link"><span>{{request.user.profile.p_name}}님</span></a></li>
+                  
                 {% endif %}
-             
+
+
+
+    </div>
+  </div>
+</div>
+                
                 </ul>
             </div>
 
             </div>
         </nav>
+     
     {% block content %}
     {% endblock %}
 
@@ -62,8 +73,8 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2 logo"><span>임베디드</span> 연구실</h2>
-              <p>This is Embedded Lab site for share datas and communicate with each other.</p>
+              <h2 class="ftco-heading-2 logo"><span>Embedded</span> Labs</h2>
+              <p>연구실</p>
               
             </div>
           </div>
@@ -71,7 +82,9 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Menu</h2>
               <ul class="list-unstyled">
-                <li><a href="{% url 'main:Viewmembers' %}" class="py-1 d-block"><span class="ion-ios-arrow-forward mr-3"></span>연구원</a></li>
+                <li><a href="{% url 'main:Viewmembers' %}" class="py-1 d-block"><span class="glyphicon glyphicon-exclamation-sign"></span>연구원</a></li>
+                <li><a href="https://www.cju.ac.kr/www/index.do" class="py-1 d-block"><span class="glyphicon glyphicon-exclamation-sign"></span>청주대학교 홈페이지</a></li>
+                <li><a href="https://portal.cju.ac.kr/" class="py-1 d-block"><span class="glyphicon glyphicon-exclamation-sign"></span>청주대학교 포털</a></li>
                
 
               </ul>
@@ -92,11 +105,13 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">AJY</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i> by Embedded Lab</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>
       </div>
+
+
     </footer>
     
     <script src="{% static 'Main/js/jquery.min.js'%}"></script>

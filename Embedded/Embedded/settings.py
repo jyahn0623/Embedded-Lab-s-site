@@ -24,19 +24,29 @@ SECRET_KEY = 'gki5)v11qw7m15p2uqa46g-$+kjhf2bi%ms0lva6w*$rny@3em'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+
+# summer_note
+SUMMERNOTE_THEME = 'bs4'
+
+# disqus
+DISQUS_WEBSITE_SHORTNAME = 'embedded-2'
+SITE_ID = 1
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_summernote',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Main'
+    'Main',
+    'disqus',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -115,3 +125,5 @@ LOGIN_URL = '/login/'
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

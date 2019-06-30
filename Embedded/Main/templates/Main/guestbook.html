@@ -1,0 +1,145 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+    <section class="ftco-intro img" id="events-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="container mb-4">
+
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">방명록</h2>
+    <!--Section description-->
+    <p class="text-center w-responsive mx-auto mb-5"><span style="color : black">발자취를 남겨주세요.<span></p>
+
+    <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-md-0 mb-5">
+            <form id="contact-form" name="contact-form" action="{% url 'main:guestbook-write' %}" method="POST">
+{% csrf_token %}
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input type="text" id="name" name="name" class="form-control">
+                            <label for="name" class="">이름</label>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input type="text" id="email" name="email" class="form-control">
+                            <label for="email" class="">이메일</label>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <input type="text" id="subject" name="subject" class="form-control">
+                            <label for="subject" class="">제목</label>
+                        </div>
+                    </div>
+                </div>
+                <!--Grid row-->
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-12">
+
+                        <div class="md-form">
+                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                            <label for="message">내용</label>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Grid row-->
+
+            </form>
+
+            <div class="text-center text-md-left">
+                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">쓰기</a>
+            </div>
+            <div class="status"></div>
+        </div>
+        <!--Grid column-->
+
+    </div>
+    <div id="content" class="row mt-3"> 
+    {% for item in obj %}
+    <div class="col-md-12">
+        <div id="content" class="card bg-light mb-3">
+        <div class="card-header">{{item.g_email}}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{item.g_name}}</h5>
+                <p class="card-text">{{item.g_content}}</p>
+                <p class="card-text">{{item.g_date}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+
+    
+
+</section>
+
+<script>
+    var isAjax = true;
+    $(window).scroll(function(){
+        if( $(window).scrollTop()  >= $(document).height() - $(window).height()){
+            page++;
+            if (isAjax) getDate()
+        }
+    });
+
+    var page = 0;
+    var totalcnt = '{{totalcnt}}';
+    function getDate(){
+        $.ajax({
+            url : '/ajax/guestbook/',
+            type : 'POST',
+            data : {
+                "csrfmiddlewaretoken" : '{{csrf_token}}',
+                'page' : page,
+            },
+            success : function(abc){    
+                var base = $("<div class='col-md-12' ></div>");
+                if (abc.status){
+                    for( var i in abc.gb){
+                        var html = $("<div class='card bg-light mb-3'></div>").prepend("\
+                        <div class=card-header>"+abc.gb[i].g_email+"</div>\
+                        <div class=card-body>\
+                        <h5 class=card-title>"+abc.gb[i].g_name+"</h5>\
+                        <p class=card-text>"+abc.gb[i].g_title+"</p>\
+                        <p class=card-text>"+abc.gb[i].g_content+"</p>\
+                        </div>\
+                        ");
+                        $("#content").append(base.prepend(html));
+                    }
+                }else{
+                    isAjax = false;
+                    $("#content").append(base.prepend("<div class='text-center alert alert-warning'>방명록의 마지막입니다.</div>"));
+            }          
+            }
+        })
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'Main/mypage_base.html' %}
+{% block content %}
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+<form method="POST" action="{% url 'main:edit-user' %}" enctype="multipart/form-data">
+{% csrf_token %}
+    {{f1.as_p}}
+    {{f2.as_p }}
+    <input class="btn btn-outline-info waves-effect" type="submit" value="수정">
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'Main/base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'Main/js/summer_note_kr.js' %}"></script>
+<script src="{% static 'Main/js/dropzone.js' %}"></script>
+
+<section class="ftco-intro img" id="events-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</section>
+<div class="container mt-3 mb-3">
+<form method="POST" action="{% url 'main:write-board' %}" enctype="multipart/form-data">
+{% csrf_token %}
+    {{form.as_p}}
+
+    
+    <input type="submit" value="완료">
+</form>
+</div>
+
+<script>
+
+</script>
+{% endblock%}
