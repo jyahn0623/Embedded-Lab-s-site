@@ -8,13 +8,21 @@ from django.dispatch import receiver
 def save_pic_user(instance, name):
     return "{0}/{1}".format("Profile", name)
 
+
+class RankPicture(models.Model):
+    r_rankcode = models.CharField(max_length=5)
+    r_images = models.ImageField(null=True)
+
 class Profile(models.Model):
     p_user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     p_name = models.CharField(max_length=5, verbose_name="이름")
     p_grade = models.CharField(max_length=1, verbose_name="학년")
     p_rank = models.CharField(default="재학생", max_length=5, verbose_name="신분", choices=(('재학생', '재학생'), ('졸업생', '졸업생'), ('실장', '실장')))
+    p_rank_pic = models.OneToOneField("Main.RankPicture", verbose_name="계급 사진", on_delete=models.DO_NOTHING, null=True)
     p_birth_date = models.DateField(verbose_name="생년월일", null=True)
     p_picture = models.ImageField(verbose_name="사진", null=True, upload_to=save_pic_user)
+
+    
 
 
 class Board(models.Model):
@@ -28,11 +36,9 @@ class Board(models.Model):
 class Schedule(models.Model):
     s_user = models.CharField(max_length=50)
     s_date = models.DateTimeField(null=True)
+    s_finished_date = models.DateTimeField(null=True)
     s_content = models.CharField(max_length=50)
 
-class RankPicture(models.Model):
-    r_rankcode = models.CharField(max_length=5)
-    r_images = models.ImageField(null=True)
 
 
 class BoardFiles(models.Model):

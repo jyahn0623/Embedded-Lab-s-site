@@ -98,21 +98,8 @@
 		<script>
 		var shcedule_data = {};
 		var events = []
-			$(document).ready(function(){
-			schedule_data = JSON.parse('{{sche|safe}}');
-			console.log(schedule_data);
-			for (var i in schedule_data){
-				console.log(schedule_data[i]['fields']);
-				events.push(
-					{
-						'title' : schedule_data[i]['fields']['s_user'],
-						'start' : "2019-07-01"
-					}
-				)
-			}
-			console.log((events));
-			
-			
+		$(document).ready(function(){
+		
 		})
 		
 
@@ -143,10 +130,12 @@
 						evs.push(
 							{
 								'title' : schedule_data[i]['fields']['s_user'] + "-" + schedule_data[i]['fields']['s_content'],
-								'start' : schedule_data[i]['fields']['s_date']
+								'start' : schedule_data[i]['fields']['s_date'],
+								'end' : schedule_data[i]['fields']['s_finished_date']
 							}
 						)
 					}
+					console.log(evs);
 					callback(evs);
 					var add_schedule_btn = $("<button id=add_scehedule class='btn btn-info' onclick='add_schedule();'>일정추가</button>");
 					if (!$("#add_scehedule")[0]){

@@ -30,10 +30,11 @@
     {% if boards %}
         {% for item in boards %}
             <tr>
+        
                 <td style="width : 10%">{{item.id}}</td>
                 <td style="width : 10%">{{item.get_b_category_display}}</td>
                 <td style="width : 50%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
-                <td style="width : 10%">{{item.b_user.profile.p_name}}</td>
+                <td style="width : 10%">{% if item.b_user.profile.p_rank_pic.r_images  %} <img src="{{item.b_user.profile.p_rank_pic.r_images.url}}" width="15" height="15"> {% else %} <img src="" width="15" height="15"> {% endif %} {{item.b_user.profile.p_name}}</td>
                 <td style="width : 30%">{{item.b_date}}</td>
             </tr>
         {% endfor %}

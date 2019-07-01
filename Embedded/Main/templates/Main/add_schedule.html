@@ -7,7 +7,7 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'Main/js/bootstrap.min.js'%}"></script>
 </head>
 <body>
@@ -16,8 +16,9 @@
 {% csrf_token %}
     <label>사람</label>
     <input name="person" class="form-control" type="text" placeholder="EX) 안주영 or 안주영, 곽재원">
-    <label>날짜</label>
+    <label>날짜 ※종료날짜 필요<input id="HasFinished" type="checkbox"></label>
     <input name="date" class="form-control" type="datetime-local" >
+    <div class="finishedDate"></div>
     <label>내용</label>
     <textArea class="form-control" name="content" placeholder="EX) 프로젝트 미팅"></textArea>
     <br>
@@ -25,6 +26,15 @@
 </form>
 </div>
     <script>
+        $("#HasFinished").change(function(){
+            if ($("#HasFinished").is(":checked")){
+                console.log("check");
+                var newHtml = $("<div><label>종료날짜</label> <input name=finishdate class=form-control type=datetime-local></div>");
+                $(".finishedDate").append(newHtml);
+            }else{
+                $(".finishedDate").empty();
+            }
+        })
     </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ class Main(View):
     
     def post(self, request, *args, **kwargs):
         from django.core import serializers
-        sche = serializers.serialize("json", Schedule.objects.all(), ensure_ascii=False,  fields=('s_content', 's_date', 's_user'))
+        sche = serializers.serialize("json", Schedule.objects.all(), ensure_ascii=False,  fields=('s_content', 's_date', 's_user', 's_finished_date'))
         return HttpResponse(json.dumps({"sche" : sche}), content_type="application/json")
     
 
@@ -188,8 +188,12 @@ def addSchedule(request):
     if request.method == 'POST':
         person = request.POST.get('person')
         date = request.POST.get('date')
+        finishdate = request.POST.get('finishdate', None)
         content = request.POST.get('content')
         data = {'s_user' : person, 's_date' : date ,'s_content' : content}
+        print(finishdate)
+        if finishdate:
+            data['s_finished_date'] = finishdate
         Schedule.objects.create(**data)
         return HttpResponse("<script>alert('저장 완료되었습니다.'); window.close();</script>")
 
@@ -214,10 +218,17 @@ def register(request):
         p2 = RegisterForm1(request.POST)
          
         if p2.is_valid() and p1.is_valid():
+            rank = p1.cleaned_data['p_rank']
             i = p2.save()
             j = p1.save() # form의 save의 결과는 디폴트는 instance가 반환되는 것을 활용
+            if rank == '재학생':
+                j.p_rank_pic = RankPicture.objects.get(r_rankcode=2)
+            elif rank == '실장':
+                j.p_rank_pic = RankPicture.objects.get(r_rankcode=1)
+            else:
+                j.p_rank_pic = RankPicture.objects.get(r_rankcode=3)
             j.p_user = i
-            j.save(update_fields=['p_user',])
+            j.save(update_fields=['p_user', 'p_rank_pic'])
             return redirect('/')
         print(p1.errors, p2.errors)
     return render(request, 'Main/register.html', {

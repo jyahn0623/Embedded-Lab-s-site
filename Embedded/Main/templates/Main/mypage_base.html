@@ -37,7 +37,11 @@
  
 <main role="main" class="container">
   <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+  {% if request.user.profile.p_picture %}
     <img class="mr-3" src="{{request.user.profile.p_picture.url}}" alt="" width="48" height="48">
+  {% else %}
+    <img class="mr-3" src="" alt="" width="48" height="48">
+  {% endif %}
     <div class="lh-100" style="color : black">
       <h6 class="mb-0 lh-100">{{request.user.profile.p_name}}</h6>
       <small>최근 접속일 : {{request.user.last_login}}</small>
