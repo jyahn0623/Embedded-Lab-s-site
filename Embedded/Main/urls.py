@@ -21,7 +21,8 @@ urlpatterns = [
     path('board/search', views.searchBoard, name="search-board"),
     path('guestbook/', views.guestbook, name="guestbook"),
     path('ajax/guestbook/', views.ajaxguestbook, name="guestbook-ajax"),
-    path('guestbook/write/', views.guestbookWrite, name="guestbook-write")
+    path('guestbook/write/', views.guestbookWrite, name="guestbook-write"),
+    path('schedule/add', views.addSchedule, name="add-schedule")
 ]
 
 

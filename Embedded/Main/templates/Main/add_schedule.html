@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+<head>
+      
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="{% static 'Main/js/bootstrap.min.js'%}"></script>
+</head>
+<body>
+<div class="container">
+<form action="{% url 'main:add-schedule' %}" method="POST">
+{% csrf_token %}
+    <label>사람</label>
+    <input name="person" class="form-control" type="text" placeholder="EX) 안주영 or 안주영, 곽재원">
+    <label>날짜</label>
+    <input name="date" class="form-control" type="datetime-local" >
+    <label>내용</label>
+    <textArea class="form-control" name="content" placeholder="EX) 프로젝트 미팅"></textArea>
+    <br>
+    <input type="submit" value="일정 추가" class="btn btn-info">
+</form>
+</div>
+    <script>
+    </script>
+</body>
+</html>

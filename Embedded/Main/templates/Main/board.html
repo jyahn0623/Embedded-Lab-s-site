@@ -12,6 +12,7 @@
 <table class="table table-sm table-hover text-center" style="color : black;">
     <thead class="thead thead-light">
         <th>번호</th>
+        <th>분류</th>
         <th>제목</th>
         <th>작성자</th>
         <th>날짜</th>
@@ -20,7 +21,8 @@
     {% for item in notice %}
        <tr class="font-weight-bold" style="background-color : rgb(255, 254, 205)">
                 <td style="width : 10%">{{item.id}}</td>
-                <td style="width : 50%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
+                <td style="width : 10%">{{item.get_b_category_display}}</td>
+                <td style="width : 40%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
                 <td style="width : 10%">{{item.b_user}}</td>
                 <td style="width : 30%">{{item.b_date}}</td>
         </tr>
@@ -29,6 +31,7 @@
         {% for item in boards %}
             <tr>
                 <td style="width : 10%">{{item.id}}</td>
+                <td style="width : 10%">{{item.get_b_category_display}}</td>
                 <td style="width : 50%" class="text-left"><a style="color : black" href="{% url 'main:read-board' item.id %}">{{item.b_title}}</a></td>
                 <td style="width : 10%">{{item.b_user.profile.p_name}}</td>
                 <td style="width : 30%">{{item.b_date}}</td>

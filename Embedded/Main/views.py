@@ -21,7 +21,14 @@ class LoginRequireMixin(object):
 
 class Main(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'Main/index.html', {})
+        return render(request, 'Main/index.html', { })
+    
+    def post(self, request, *args, **kwargs):
+        from django.core import serializers
+        sche = serializers.serialize("json", Schedule.objects.all(), ensure_ascii=False,  fields=('s_content', 's_date', 's_user'))
+        return HttpResponse(json.dumps({"sche" : sche}), content_type="application/json")
+    
+
 
 class Login(View):
     def get(self, request, *args, **kwargs):
@@ -170,7 +177,23 @@ def readBoard(request, b_id):
 
 @login_required
 def ViewMembers(request):
-    return render(request, 'Main/Introduction_members.html', {})
+
+    mems = User.objects.filter(profile__p_rank="재학생")
+    print(mems)
+    return render(request, 'Main/Introduction_members.html', {'mems' : mems, })
+
+# 일정 추가
+@login_required
+def addSchedule(request):
+    if request.method == 'POST':
+        person = request.POST.get('person')
+        date = request.POST.get('date')
+        content = request.POST.get('content')
+        data = {'s_user' : person, 's_date' : date ,'s_content' : content}
+        Schedule.objects.create(**data)
+        return HttpResponse("<script>alert('저장 완료되었습니다.'); window.close();</script>")
+
+    return render(request, 'Main/add_schedule.html', {})
 
 # 아이디 중복 체크 
 def isExistsID(request):

@@ -14,6 +14,25 @@
             <h2 class="mb-4">연구원</h2>
             
           </div>
+
+		  {% for person in mems %}
+		  	<div class="col-md-4">
+        		<div class="sermon-wrap ftco-animate">
+    					<div class="img d-flex align-items-center justify-content-center" style="background-image : url(../../media/{{person.profile.p_picture}})">
+						
+    					</div>
+    					<div class="text pt-3 text-center">
+    						<h2 class="mb-0"><a href="sermon.html">{{person.profile.p_name}}</a></h2>
+    						<div class="meta">
+		  						<p class="mb-0">
+			  						<span>{{person.profile.p_grade}}학년</span>
+		  						</p>
+		  					</div>
+    					</div>
+  					</div>
+        	</div>
+		  {% endfor %}
+		  <!--
         </div>
 				<div class="row">
         	<div class="col-md-4">
@@ -175,7 +194,9 @@
     					</div>
   					</div>
         	</div>
+			-->
         </div>
 			</div>
+
 		</section>
 {% endblock %}
