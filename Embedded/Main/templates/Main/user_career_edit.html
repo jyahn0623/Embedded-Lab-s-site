@@ -1,0 +1,27 @@
+{% extends 'Main/mypage_base.html' %}
+{% block content %}
+    <button id="add_btn">이력 추가</button>
+    <div id="add_elements"></div>
+    <div class="media text-muted pt-3">
+      <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#0077ff" dy=".3em">32x32</text></svg>
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark"><a href="{% url 'main:edit-career' %}">이력 관리</a></strong>
+        경험(포트폴리오), 이력 추가·삭제·변경
+      </p>
+    </div>
+
+    <script>
+        $("#add_btn").click(function(){
+            if($("div#add_elements").find("div#elements")){
+                $("div#elements").empty();
+            }
+            var el = $("\
+            <div id=elements><label>내용</label><input id=content type=text>\
+            <label>일자</label><input id=date type=date>\
+            <input type=submit class='btn btn-info'>\
+            </div>");
+            $('#add_elements').append(el);
+            
+        })
+    </script>
+{% endblock %}

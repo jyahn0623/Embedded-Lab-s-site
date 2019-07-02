@@ -18,12 +18,15 @@ class Profile(models.Model):
     p_name = models.CharField(max_length=5, verbose_name="이름")
     p_grade = models.CharField(max_length=1, verbose_name="학년")
     p_rank = models.CharField(default="재학생", max_length=5, verbose_name="신분", choices=(('재학생', '재학생'), ('졸업생', '졸업생'), ('실장', '실장')))
-    p_rank_pic = models.OneToOneField("Main.RankPicture", verbose_name="계급 사진", on_delete=models.DO_NOTHING, null=True)
+    p_rank_pic = models.ForeignKey("Main.RankPicture", verbose_name="계급 사진", on_delete=models.DO_NOTHING, null=True)
     p_birth_date = models.DateField(verbose_name="생년월일", null=True)
     p_picture = models.ImageField(verbose_name="사진", null=True, upload_to=save_pic_user)
 
     
-
+class Career(models.Model):
+    c_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="이름", null=True)
+    c_content = models.CharField(max_length=30, verbose_name="내용")
+    c_date = models.DateField(verbose_name="날짜", null=True)
 
 class Board(models.Model):
     b_title = models.CharField(max_length=50, verbose_name="제목")

@@ -6,6 +6,7 @@ app_name = 'main'
 urlpatterns = [
     path('', Main.as_view(), name="main"),
     path('members/', views.ViewMembers, name="Viewmembers"),
+    path('members/<id>/', views.detailMember, name='views-member'),
     path('mypage/', views.mypage, name="mypage"),
     path('user/edit/', views.editUser, name="edit-user"),
     path('register/', views.register, name="register"),
@@ -22,7 +23,9 @@ urlpatterns = [
     path('guestbook/', views.guestbook, name="guestbook"),
     path('ajax/guestbook/', views.ajaxguestbook, name="guestbook-ajax"),
     path('guestbook/write/', views.guestbookWrite, name="guestbook-write"),
-    path('schedule/add', views.addSchedule, name="add-schedule")
+    path('schedule/add', views.addSchedule, name="add-schedule"),
+    path('user/add/career/', views.addCareer, name="add-career"),
+    path('user/edit/career/', views.editCareer, name="edit-career")
 ]
 
 

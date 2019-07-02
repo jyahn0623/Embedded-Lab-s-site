@@ -20,7 +20,7 @@
         		<div class="sermon-wrap ftco-animate">
     					<div class="img d-flex align-items-center justify-content-center" style="background-image : url(../../media/{{person.profile.p_picture}})">
     					</div>
-    					<div class="text pt-3 text-center">{{person.profile.p_name}}</a></h2>
+    					<div class="text pt-3 text-center"><a href="{% url 'main:views-member' person.id %}">{{person.profile.p_name}}</a></h2>
     						<div class="meta">
 		  						<p class="mb-0">
 			  						<span>{{person.profile.p_grade}}학년</span>

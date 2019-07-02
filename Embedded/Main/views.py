@@ -177,12 +177,21 @@ def readBoard(request, b_id):
 
 @login_required
 def ViewMembers(request):
-
     mems = User.objects.filter(profile__p_rank="재학생")
     graduate_mems = User.objects.filter(profile__p_rank="졸업생")
     print(mems)
     return render(request, 'Main/Introduction_members.html', {'mems' : mems, 'gra_mems' : graduate_mems})
 
+@login_required
+def detailMember(request, id):
+    data = None
+    user = User.objects.get(id=id)
+    try:
+        data = Profile.objects.get(p_user=user)
+    except Exception:
+        pass
+
+    return render(request, 'Main/introduction_member_detail.html', {'data' : data})
 # 일정 추가
 @login_required
 def addSchedule(request):
@@ -289,3 +298,13 @@ def guestbookWrite(request):
     return redirect('/guestbook/')
 
 
+def editCareer(request):
+    if request.method == 'GET':
+        datas = Career.objects.filter(c_user=request.user)
+        return render(request, 'Main/user_career_edit.html', {'datas' : datas, })
+
+        
+def addCareer(request):
+    if request.method == 'GET':
+        
+        return render(request, 'Main/user_career_edit.html', {})
