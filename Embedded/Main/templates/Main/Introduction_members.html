@@ -6,7 +6,7 @@
 }
 
 </style>
-<section class="ftco-section bg-light" id="sermons-section">
+<section class="ftco-section bg-light">
 			<div class="container">
 				<div class="row justify-content-center pb-5">
           <div class="col-md-12 heading-section text-center ftco-animate">
@@ -24,6 +24,28 @@
     						<div class="meta">
 		  						<p class="mb-0">
 			  						<span>{{person.profile.p_grade}}학년</span>
+		  						</p>
+		  					</div>
+    					</div>
+  					</div>
+        	</div>
+		  {% endfor %}
+
+		  <div class="col-md-12 heading-section text-center ftco-animate">
+          	<span class="subheading">Members</span>
+            <h2 class="mb-4">졸업생</h2>
+            
+          </div>
+
+		  {% for person in gra_mems %}
+		  	<div class="col-md-4">
+        		<div class="sermon-wrap ftco-animate">
+    					<div class="img d-flex align-items-center justify-content-center" style="background-image : url(../../media/{{person.profile.p_picture}})">
+    					</div>
+    					<div class="text pt-3 text-center">{{person.profile.p_name}}</a></h2>
+    						<div class="meta">
+		  						<p class="mb-0">
+			  						
 		  						</p>
 		  					</div>
     					</div>

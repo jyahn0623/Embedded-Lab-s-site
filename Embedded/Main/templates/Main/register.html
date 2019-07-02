@@ -11,7 +11,7 @@
 </section>
 
 <section class="ftco-daily-verse img">
-    <div class="container">
+    <div id="xx" class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
 
@@ -77,8 +77,25 @@
         }else{
             $("span#alert").html("비밀번호가 일치합니다.").css("color", "green");
             isPass = true;
-        }
+        }           
     })
+    $("#id_password").keyup(function(){
+        var password = $("#id_password").val();
+        var input = $("#password_check").val();
+        if($("#id_password").val() == ""){
+            $("span#alert").html("비밀번호를 입력해 주세요.").css("color", "red");
+            isPass = false;
+        }else if(input != password){
+             $("span#alert").html("비밀번호가 일치하지 않습니다.").css("color", "red");
+            isPass = false;
+        }  else{
+            $("span#alert").html("비밀번호가 일치합니다.").css("color", "green");
+            isPass = true;
+        }   
+        
+    })
+
+
     
     
     $("#pass").on('click', function(){
@@ -88,5 +105,7 @@
             alert("폼을 확인해 주세요.");
         }
     })
+
+
 </script>
 {% endblock %}

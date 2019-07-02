@@ -137,7 +137,7 @@ def searchBoard(request):
     page_ = request.GET.get("page", None)
     keyword = request.GET.get("keyword")
     notice_board = Board.objects.filter(b_isNotice=True)[:5]
-    res = Board.objects.filter(Q(b_title__icontains=keyword)|Q(b_user__username=keyword), b_isNotice=False)
+    res = Board.objects.filter(Q(b_title__icontains=keyword)|Q(b_user__profile__p_name=keyword), b_isNotice=False)
     p = Paginator(res, 10)
     # 키워드 검색 후 페이지네이션에 따른 보여줄 리스트
     if page_:
@@ -179,8 +179,9 @@ def readBoard(request, b_id):
 def ViewMembers(request):
 
     mems = User.objects.filter(profile__p_rank="재학생")
+    graduate_mems = User.objects.filter(profile__p_rank="졸업생")
     print(mems)
-    return render(request, 'Main/Introduction_members.html', {'mems' : mems, })
+    return render(request, 'Main/Introduction_members.html', {'mems' : mems, 'gra_mems' : graduate_mems})
 
 # 일정 추가
 @login_required
@@ -230,7 +231,7 @@ def register(request):
             j.p_user = i
             j.save(update_fields=['p_user', 'p_rank_pic'])
             return redirect('/')
-        print(p1.errors, p2.errors)
+    
     return render(request, 'Main/register.html', {
         'f1' : profile_form, 
         'f2' : profile_form1,

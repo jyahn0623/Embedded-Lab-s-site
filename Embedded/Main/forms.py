@@ -27,7 +27,7 @@ class RegisterForm(forms.ModelForm):
 class EditProfile(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['p_user',]
+        exclude = ['p_user', 'p_rank_pic']
         widgets  = {'p_grade' : forms.Select(choices=[('1', '1'), \
             ('2', '2'), ('3', '3'), ('4', '4')]),
             'p_birth_date' : forms.TextInput(attrs={'placeholder' : 'YYYY-MM-dd'})
